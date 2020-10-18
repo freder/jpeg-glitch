@@ -451,6 +451,11 @@ struct jpeg_compress_struct {
   struct jpeg_entropy_encoder * entropy;
   jpeg_scan_info * script_space; /* workspace for jpeg_simple_progression */
   int script_space_size;
+
+  // ---
+  float huffTableMultiplier;
+  int quantMultiplier;
+  int dctNoise;
 };
 
 

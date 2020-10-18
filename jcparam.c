@@ -195,6 +195,10 @@ std_huff_tables (j_compress_ptr cinfo)
 GLOBAL(void)
 jpeg_set_defaults (j_compress_ptr cinfo)
 {
+  cinfo->huffTableMultiplier = 1.0; // 0.8
+  cinfo->dctNoise = 0; // 2000
+  cinfo->quantMultiplier = 0; // 150
+
   int i;
 
   /* Safety check to ensure start_compress not called yet. */

@@ -16,6 +16,7 @@
 #include "jinclude.h"
 #include "jpeglib.h"
 #include "jdct.h"		/* Private declarations for DCT subsystem */
+#include <time.h>
 
 
 /* Private subobject for this module */
@@ -96,8 +97,16 @@ forward_DCT (j_compress_ptr cinfo, jpeg_component_info * compptr,
       register JCOEFPTR output_ptr = coef_blocks[bi];
 
       for (i = 0; i < DCTSIZE2; i++) {
-	qval = divisors[i];
-	temp = workspace[i];
+		qval = divisors[i];
+		temp = workspace[i];
+
+        // adds noise, essentially:
+        int amount = cinfo->dctNoise;
+        if (amount > 0) {
+	        srand(clock());
+	        temp += rand() % amount;
+        }
+
 	/* Divide the coefficient value by qval, ensuring proper rounding.
 	 * Since C does not specify the direction of rounding for negative
 	 * quotients, we have to force the dividend positive for portability.

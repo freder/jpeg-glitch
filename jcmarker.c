@@ -12,6 +12,7 @@
 #define JPEG_INTERNALS
 #include "jinclude.h"
 #include "jpeglib.h"
+#include <time.h>
 
 
 typedef enum {			/* JPEG marker codes */
@@ -171,6 +172,13 @@ emit_dqt (j_compress_ptr cinfo, int index)
     for (i = 0; i <= cinfo->lim_Se; i++) {
       /* The table entries must be emitted in zigzag order. */
       unsigned int qval = qtbl->quantval[cinfo->natural_order[i]];
+
+      int amount = cinfo->quantMultiplier;
+      if (amount > 0) {
+        srand(clock());
+        qval += (rand() % amount) - (amount * 0.5);
+      }
+      
       if (prec)
 	emit_byte(cinfo, (int) (qval >> 8));
       emit_byte(cinfo, (int) (qval & 0xFF));
@@ -213,8 +221,12 @@ emit_dht (j_compress_ptr cinfo, int index, boolean is_ac)
     for (i = 1; i <= 16; i++)
       emit_byte(cinfo, htbl->bits[i]);
     
-    for (i = 0; i < length; i++)
-      emit_byte(cinfo, htbl->huffval[i]);
+    for (i = 0; i < length; i++) {
+      emit_byte(
+        cinfo, 
+        htbl->huffval[i] * cinfo->huffTableMultiplier
+      );
+    }
     
     htbl->sent_table = TRUE;
   }
