@@ -252,7 +252,28 @@ parse_switches (j_compress_ptr cinfo, int argc, char **argv,
     }
     arg++;			/* advance past switch marker character */
 
-    if (keymatch(arg, "arithmetic", 1)) {
+    // custom arguments:
+    // NOTE: matches only lower case
+    if (keymatch(arg, "hufftablemultiplier", 1)) {
+      if (++argn >= argc) usage(); /* advance to next argument */
+      float val;
+      sscanf(argv[argn], "%f", &val);
+      cinfo->huffTableMultiplier = val;
+    }
+    else if (keymatch(arg, "dctnoise", 1)) {
+      if (++argn >= argc) usage(); /* advance to next argument */
+      int val;
+      sscanf(argv[argn], "%d", &val);
+      cinfo->dctNoise = val;
+    }
+    else if (keymatch(arg, "quantmultiplier", 1)) {
+      if (++argn >= argc) usage(); /* advance to next argument */
+      int val;
+      sscanf(argv[argn], "%d", &val);
+      cinfo->quantMultiplier = val;
+    }
+
+    else if (keymatch(arg, "arithmetic", 1)) {
       /* Use arithmetic coding. */
 #ifdef C_ARITH_CODING_SUPPORTED
       cinfo->arith_code = TRUE;
