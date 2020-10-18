@@ -1,1 +1,10 @@
 .deps
+*.o
+.libs
+*.lo
+cjpeg
+djpeg
+jpegtran
+libjpeg.la
+rdjpgcom
+wrjpgcom
