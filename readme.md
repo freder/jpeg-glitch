@@ -1,5 +1,6 @@
 - based on `jpeg-9d` from https://ijg.org/
 - adds a couple of modifications to mess with the encoding process in order to produce glitchy images
+- don't run it directly → use https://github.com/freder/jpeg-glitch-notebook
 
 ## build
 
