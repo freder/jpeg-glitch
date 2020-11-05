@@ -1,6 +1,6 @@
-- based on `jpeg-9d` from https://ijg.org/
-- adds a couple of modifications to mess with the encoding process in order to produce glitchy images
-- don't run it directly → use https://github.com/freder/jpeg-glitch-notebook
+based on `jpeg-9d` (from https://ijg.org/). adds a couple of modifications to mess with the encoding process, in order to produce glitchy images. 
+
+examples: https://www.instagram.com/p/CGhgyU6h3gS/
 
 ## build
 
@@ -9,14 +9,6 @@
 make -j4
 ```
 
-## run
+## use
 
-```
-./cjpeg -grayscale -baseline \
-  -qtables "tables.txt" \
-  -huffTableMultiplier 0.8 \
-  -dctNoise 1000 \
-  -quantMultiplier 30 \
-  -outfile glitch.jpg
-  input.tga
-```
+as shown here: https://github.com/freder/jpeg-glitch-notebook
