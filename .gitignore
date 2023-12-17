@@ -8,3 +8,7 @@ jpegtran
 libjpeg.la
 rdjpgcom
 wrjpgcom
+config.log
+config.status
+libtool
+Makefile
